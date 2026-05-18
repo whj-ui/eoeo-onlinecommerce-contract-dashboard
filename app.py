@@ -317,23 +317,19 @@ with (grid_col if detail_col else st.container()):
         with cols[idx % 3]:
             border = "2px solid #1A1917" if selected else "1px solid #e8e7e2"
             exp_str = f" · {expire[:7]}" if expire and expire not in ("nan","") else ""
-            st.markdown(f"""
-            <div style="background:white;border:{border};border-radius:10px;
-                        padding:13px 14px;margin-bottom:8px;">
-                <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-                    <div>
-                        <div style="font-size:13px;font-weight:500">{brand}</div>
-                        <div style="font-size:11px;color:#aaa">{company}</div>
-                    </div>
-                    <span style="font-size:11px;white-space:nowrap">{status_icon} {status}</span>
-                </div>
-                {"<div style='font-size:11px;margin-bottom:3px'>" + plat_tags + "</div>" if plat_tags else ""}
-                <div style="font-size:11px;color:#888;margin-top:3px">{si} {sm['label']}</div>
-                <div style="font-size:11px;color:#aaa;margin-top:3px">
-                    👤 {pic_short}{exp_str}
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+            plat_html = f'<div style="font-size:11px;margin-bottom:3px">{plat_tags}</div>' if plat_tags else ""
+            card_html = (
+                f'<div style="background:white;border:{border};border-radius:10px;padding:13px 14px;margin-bottom:8px;">' +
+                f'<div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
+                f'<div><div style="font-size:13px;font-weight:500">{brand}</div>' +
+                f'<div style="font-size:11px;color:#aaa">{company}</div></div>' +
+                f'<span style="font-size:11px;white-space:nowrap">{status_icon} {status}</span></div>' +
+                plat_html +
+                f'<div style="font-size:11px;color:#888;margin-top:3px">{si} {sm["label"]}</div>' +
+                f'<div style="font-size:11px;color:#aaa;margin-top:3px">👤 {pic_short}{exp_str}</div>' +
+                '</div>'
+            )
+            st.markdown(card_html, unsafe_allow_html=True)
 
             if st.button(
                 "닫기 ✕" if selected else "상세 보기 →",
