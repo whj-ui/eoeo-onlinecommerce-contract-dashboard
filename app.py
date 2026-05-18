@@ -75,8 +75,8 @@ if not raw_main:
     st.error("데이터를 불러올 수 없습니다. Secrets 설정을 확인해주세요.")
     st.stop()
 
-# ── Sheet1: 헤더가 1행 ──
-df_main = rows_to_df(raw_main, header_row=0)
+# ── Sheet1: 헤더가 2행 (1행은 카테고리) ──
+df_main = rows_to_df(raw_main, header_row=1)
 
 # ── BRAND: 헤더가 2행 (1행은 그룹명) ──
 df_brand = rows_to_df(raw_brand, header_row=1) if raw_brand else pd.DataFrame()
@@ -91,7 +91,7 @@ COL = {
     "brand":   "Brand",           # Sheet1
     "company": "Company",
     "status":  "Status",
-    "amz":     "Amazon US",
+    "amz":     "Amazon Status",
     "tts":     "TikTok Shop Status",
     "pic":     "Main POC",
     "sub":     "Sub POC",
@@ -111,7 +111,7 @@ BCOL = {
     "access":       "접속 방법",
     "tts_acct":     "Tiktok Shop Account",
     "status":       "Contract Status",
-    "amz_us":       "Amazon US",
+    "amz_us":       "Amazon Status",
     "amz_ca":       "Amazon CA",
     "amz_mx":       "Amazon MX",
     "tts":          "TikTok Shop Status",
